@@ -1,6 +1,8 @@
 package org.stackroute;
 
 import com.itextpdf.io.IOException;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -13,16 +15,28 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GeneratePdf {
-    public static void main(String[] args) throws FileNotFoundException , IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, MalformedURLException {
         String path = "Invoice.pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.setDefaultPageSize(PageSize.A4);
         Document document = new Document(pdfDocument);
+
+        String imagePath = "E:\\NIIT Capstone Project\\JavaInvoicepdf\\src\\main\\java\\org\\stackroute\\Logo.png";
+        ImageData imageData = ImageDataFactory.create(imagePath);
+        Image image = new Image(imageData);
+
+        float x = pdfDocument.getDefaultPageSize().getWidth()/2;
+        float y = pdfDocument.getDefaultPageSize().getHeight()/2;
+        image.setFixedPosition(x-200 , y-220);
+        image.setOpacity(0.3f);
+        document.add(image);
+
         float threecol = 190f;
         float twocol = 230f;
         float twocol150 = twocol + 150f;

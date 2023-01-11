@@ -38,6 +38,8 @@ public class GeneratePdf {
         nestedTable.addCell(getHeaderTextCellValue("USHODAYA17010"));
         nestedTable.addCell(getHeaderTextCell("Invoice Date :"));
         nestedTable.addCell(getHeaderTextCellValue("11-January-2023"));
+        nestedTable.addCell(getHeaderTextCell("GSTIN :"));
+        nestedTable.addCell(getHeaderTextCellValue("12CUJPB8751J1Z3"));
         table.addCell(new Cell().add(nestedTable).setBorder(Border.NO_BORDER));
         Border border = new SolidBorder(Color.GRAY,2f);
         Table divider = new Table(fullwidth);
@@ -71,7 +73,7 @@ public class GeneratePdf {
         Table oneColTable1 = new Table(oneColumnWidth);
         oneColTable1.addCell(getCell10fLeft("Address" , true));
         oneColTable1.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nAndhra Pradesh - 522501,\nIndia." , false));
-        oneColTable1.addCell(getCell10fLeft("EMail" , true));
+        oneColTable1.addCell(getCell10fLeft("Email" , true));
         oneColTable1.addCell(getCell10fLeft("manojbh1999@gmail.com" , false));
         oneColTable1.addCell(getCell10fLeft("Mobile Number" , true));
         oneColTable1.addCell(getCell10fLeft("+91 9010917345" , false));
@@ -129,15 +131,16 @@ public class GeneratePdf {
         document.add(divider.setBorder(new SolidBorder(Color.GRAY , 1)).setMarginBottom(15f));
 
         Table table1 = new Table(fullwidth);
-        table1.addCell(new Cell().add("TERMS AND CONDITIONS\n").setFontSize(8f).setBold().setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add("TERMS AND CONDITIONS\n").setFontSize(10f).setBold().setBorder(Border.NO_BORDER));
         List<String> tncList = new ArrayList<>();
         tncList.add("1. The seller shall not be liable to the Buyer directly or indirectly for any loss or damage suffered by the Buyer.");
         tncList.add("2. The seller warrants the product for one (1) year from the Date of Shipment.");
-        document.add(table1);
 
         for (String tnc:tncList) {
-            table1.addCell(new Cell().add(tnc).setBorder(Border.NO_BORDER));
+            table1.addCell(new Cell().add(tnc).setFontSize(10f).setBorder(Border.NO_BORDER));
         }
+
+        document.add(table1);
 
         document.close();
         System.out.println("PDF Generated");
@@ -149,7 +152,7 @@ public class GeneratePdf {
     }
 
     static Cell getHeaderTextCellValue(String textValue) {
-        return new Cell().add(textValue).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
+        return new Cell().add(textValue).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT);
     }
 
     static Cell getBillingandShippingCell(String textValue) {

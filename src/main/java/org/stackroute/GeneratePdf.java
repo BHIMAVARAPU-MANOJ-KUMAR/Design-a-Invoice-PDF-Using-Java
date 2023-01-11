@@ -37,7 +37,7 @@ public class GeneratePdf {
         nestedTable.addCell(getHeaderTextCell("Invoice No :"));
         nestedTable.addCell(getHeaderTextCellValue("USHODAYA17010"));
         nestedTable.addCell(getHeaderTextCell("Invoice Date :"));
-        nestedTable.addCell(getHeaderTextCellValue("02-January-2023"));
+        nestedTable.addCell(getHeaderTextCellValue("11-January-2023"));
         table.addCell(new Cell().add(nestedTable).setBorder(Border.NO_BORDER));
         Border border = new SolidBorder(Color.GRAY,2f);
         Table divider = new Table(fullwidth);
@@ -62,17 +62,19 @@ public class GeneratePdf {
         Table twoColTable3 = new Table(twocolumnWidth);
         twoColTable3.addCell(getCell10fLeft("Name" , true));
         twoColTable3.addCell(getCell10fLeft("Address" , true));
-        twoColTable3.addCell(getCell10fLeft("Kambala Manohara Reddy" , false));
-        twoColTable3.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nUndavalli , Seetanagaram,\nTadepalli (M.) , Guntur (Dist.),\nAndhraPradesh - 522501,\nIndia." , false));
+        twoColTable3.addCell(getCell10fLeft("Bhimavarapu Prasanthi" , false));
+        twoColTable3.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nAndhra Pradesh - 522501,\nIndia." , false));
         document.add(twoColTable3);
 
         float oneColumnWidth[] = {twocol150};
 
         Table oneColTable1 = new Table(oneColumnWidth);
         oneColTable1.addCell(getCell10fLeft("Address" , true));
-        oneColTable1.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nUndavalli , Seetanagaram,\nTadepalli (M.) , Guntur (Dist.),\nAndhraPradesh - 522501,\nIndia." , false));
+        oneColTable1.addCell(getCell10fLeft("3-551/4 , Tulasi Nilayam,\nAndhra Pradesh - 522501,\nIndia." , false));
         oneColTable1.addCell(getCell10fLeft("EMail" , true));
         oneColTable1.addCell(getCell10fLeft("manojbh1999@gmail.com" , false));
+        oneColTable1.addCell(getCell10fLeft("Mobile Number" , true));
+        oneColTable1.addCell(getCell10fLeft("+91 9010917345" , false));
         document.add(oneColTable1.setMarginBottom(10f));
 
         Table tableDivider2 = new Table(fullwidth);
@@ -113,7 +115,7 @@ public class GeneratePdf {
         float totalDashedLine[] = {threecol+125f , threecol*2};
         Table threeColTable4 = new Table(totalDashedLine);
         threeColTable4.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
-        threeColTable4.addCell(tableDivider2).setBorder(Border.NO_BORDER);
+        threeColTable4.addCell(new Cell().add(tableDivider2).setBorder(Border.NO_BORDER));
         document.add(threeColTable4);
 
         Table threeColTable3 = new Table(threeColumnWidth);
@@ -126,9 +128,20 @@ public class GeneratePdf {
         document.add(new Paragraph("\n"));
         document.add(divider.setBorder(new SolidBorder(Color.GRAY , 1)).setMarginBottom(15f));
 
+        Table table1 = new Table(fullwidth);
+        table1.addCell(new Cell().add("TERMS AND CONDITIONS\n").setFontSize(8f).setBold().setBorder(Border.NO_BORDER));
+        List<String> tncList = new ArrayList<>();
+        tncList.add("1. The seller shall not be liable to the Buyer directly or indirectly for any loss or damage suffered by the Buyer.");
+        tncList.add("2. The seller warrants the product for one (1) year from the Date of Shipment.");
+        document.add(table1);
+
+        for (String tnc:tncList) {
+            table1.addCell(new Cell().add(tnc).setBorder(Border.NO_BORDER));
+        }
 
         document.close();
         System.out.println("PDF Generated");
+
     }
 
     static Cell getHeaderTextCell(String textValue) {
